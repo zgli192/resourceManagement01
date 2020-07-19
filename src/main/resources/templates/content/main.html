@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>首页</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="/resource/common/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/resource/css/public.css" media="all"/>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">公司展示</div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel" id="test1">
+                                <div carousel-item>
+                                    <div><img src="../resource/image/1.jpg"></div>
+                                    <div><img src="../resource/image/2.jpg"></div>
+                                    <div><img src="../resource/image/3.jpg"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">工作环境</div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel" id="test2">
+                                <div carousel-item>
+                                    <div><img src="../resource/image/4.jpg"></div>
+                                    <div><img src="../resource/image/5.jpg"></div>
+                                    <div><img src="../resource/image/6.jpg"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">员工风采</div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel" id="test3">
+                                <div carousel-item>
+                                    <div><img src="../resource/image/7.jpg"></div>
+                                    <div><img src="../resource/image/8.jpg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">版本信息</div>
+                <div class="layui-card-body layui-text">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>当前版本</td>
+                            <td>
+                                2018-10-24ITYAO
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>基于框架</td>
+                            <td>
+                                layui
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>主要特色</td>
+                            <td>零门槛 / 响应式 / 清爽 / 极简</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">公告</div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>2017-08-16</td>
+                            <td>
+                                xxxxxxxxxxxxxxxxxx
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2018-06-25</td>
+                            <td>
+                                xxxxxxxxxxxxxxxxxxxx
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2018-10-24</td>
+                            <td>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    公司介绍
+                    <i class="layui-icon layui-icon-tips" lay-tips="要支持的噢" lay-offset="5"></i>
+                </div>
+                <div class="layui-card-body layui-text layadmin-text">
+
+                    <p> 勐海陈升茶业有限公司（勐海陈升茶厂），位于云南省西双版纳州勐海县八公里工业区。
+                        占地150余亩的厂区，依山傍水，掩映在漫山遍野的茶园、古树和热带植物中，从西双版纳首府景洪市至勐海县的高速路上，</p>
+                    <p>远眺陈升公司那两条180米长的银白色厂房，恍若镶嵌在湛蓝天空下，</p>
+                    <p> 翠绿青山中的一片祥云，熠熠闪亮。具有三大著名茶叶基地 ！</p>
+                    <p>—— ITYAO</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="/resource/common/layui/layui.js"></script>
+<script>
+    layui.use('carousel', function () {
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            , width: '100%' //设置容器宽度
+            , arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+        carousel.render({
+            elem: '#test2'
+            , width: '100%' //设置容器宽度
+            , arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+        carousel.render({
+            elem: '#test3'
+            , width: '100%' //设置容器宽度
+            , arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+</script>
+</body>
+</html>
+

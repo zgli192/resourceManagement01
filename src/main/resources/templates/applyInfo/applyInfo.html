@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>修改密码--layui后台管理模板 2.0</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="/resource/common/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/resource/css/common.css" media="all"/>
+</head>
+<body>
+<table id="userTables" lay-filter="userTables"></table>
+<div th:if="${sign}==all">
+    <table id="tomoTables" lay-filter="tomoTables"></table>
+</div>
+
+
+<script type="text/html" id="operate">
+    {{#  if(d.status=='待审核'){ }}
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="审核">审核</a>
+    {{#  } }}
+</script>
+<script type="text/html" id="operate1">
+    {{#  if(d.status=='待审核'){ }}
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="审核1">审核</a>
+    {{#  } }}
+</script>
+<script type="text/javascript" src="/resource/common/layui/layui.js"></script>
+<script type="text/javascript" src=" /resource/js/user.js"></script>
+<script type="text/javascript" th:inline="javascript">
+
+
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var table = layui.table,
+            $ = layui.$,
+            layer = layui.layer,
+            form = layui.form;
+        var otherHeight = Math.ceil($("blockquote").height() + 20);
+        var status = [[${status}]]
+        var sign = [[${sign}]]
+        var tableIns = table.render({
+            elem: '#userTables'
+            , url: '/applyInfo/applyInfoTable.do' //数据接口
+            , method: 'get'
+            , toolbar: '#header'
+            , page: true //开启分页
+            , id: 'tableId'
+            , where: {
+                status: status,
+                sign: sign
+            }
+            , limits: [10, 15, 30]
+            , limit: 15
+            , cols: [
+                [ //表头
+                    {'type': 'checkbox', 'fixed': 'left'}
+                    , {field: 'index', title: '序号'}
+                    , {field: 'userName', title: '申请人'}
+                    , {field: 'type', title: '申请类型'}
+                    , {field: 'main', title: '申请内容'}
+                    , {field: 'createdDate', title: '创建时间'}
+                    , {field: 'status', title: '状态'}
+                    , {title: '操作', toolbar: '#operate', 'fixed': 'right'}
+                ]
+            ]
+        });
+        var tableIns = table.render({
+            elem: '#tomoTables'
+            , url: '/applyInfo/tomoTable.do' //数据接口
+            , method: 'get'
+            , page: true //开启分页
+            , id: 'tableId1'
+            , where: {
+                status: status,
+                sign: sign
+            }
+            , limits: [10, 15, 30]
+            , limit: 15
+            , cols: [
+                [ //表头
+                    {'type': 'checkbox', 'fixed': 'left'}
+                    , {field: 'index', title: '序号'}
+                    , {field: 'userName', title: '申请人'}
+                    , {field: 'annualLeave', title: '年休假'}
+                    , {field: 'craft', title: '工种'}
+                    , {field: 'administrative', title: '行政级别'}
+                    , {field: 'title', title: '职称级别'}
+                    , {field: 'position', title: '岗位'}
+                    , {field: 'employeeType', title: '员工类型'}
+                    , {field: 'seniority', title: '本单位工龄'}
+                    , {field: 'wage', title: '薪资水平'}
+                    , {title: '操作', toolbar: '#operate1', 'fixed': 'right'}
+                ]
+            ]
+        });
+        //监听工具条
+        table.on('tool(userTables)', function (obj) {
+            var data = obj.data;
+            console.log(data);
+            if (obj.event === '审核') {
+                layer.confirm('是否审核通过？', {
+                    btn: ['通过', '驳回'] //按钮
+                }, function () {
+                    if (sign === "all") {
+                        editStatus(data.id, 2)
+                    } else {
+                        editStatus(data.id, 1)
+                    }
+                }, function () {
+                    editStatus(data.id, 3)
+                });
+            }
+        });
+        //监听工具条
+        table.on('tool(tomoTables)', function (obj) {
+            var data = obj.data;
+            console.log(data);
+            if (obj.event === '审核1') {
+                layer.confirm('是否审核通过？', {
+                    btn: ['通过', '驳回'] //按钮
+                }, function () {
+                    edit(data)
+                }, function () {
+                    editStatus(data.id, 3)
+                });
+            }
+        });
+        active = {
+            reload: function () {
+                //执行重载
+                table
+                    .reload('tableId', {
+                        method: 'get'
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+            }
+        };
+        active1 = {
+            reload: function () {
+                //执行重载
+                table
+                    .reload('tableId1', {
+                        method: 'get'
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+            }
+        };
+
+        //更改用户状态函数
+        function editStatus(id, status) {
+            layer.confirm('确认修改?', function (index) {
+                $.ajax({
+                    url: "/applyInfo/status.do",
+                    type: "post",
+                    data: {"id": id, "status": status},
+                    dataType: "json",
+                    success: function (result) {
+                        if (!result.status) {
+                            layer.msg(result.msg, {time: 2000});
+                            return false;
+                        }
+                        layer.msg("更改成功!", {time: 1000});
+                        active.reload();
+                    }
+                });
+                layer.close(index);
+            })
+        }
+
+        function edit(data) {
+            data.status = 1;
+            layer.confirm('确认修改?', function (index) {
+                $.ajax({
+                    url: "/applyInfo/editUser.do",
+                    type: "post",
+                    data: data,
+                    dataType: "json",
+                    success: function (result) {
+                        if (!result.status) {
+                            layer.msg(result.msg, {time: 2000});
+                            return false;
+                        }
+                        layer.msg("更改成功!", {time: 1000});
+                        active1.reload();
+                    }
+                });
+                layer.close(index);
+            })
+        }
+    });
+</script>
+
+</body>
+</html>

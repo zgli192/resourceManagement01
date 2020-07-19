@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wyy.ityuyao.mapper.TeamMapper">
+    <select id="selectUser" resultType="com.wyy.ityuyao.entity.User">
+        select t.name as deptName ,u.* from gm_team t ,gm_user u,gm_team_user tu
+        <where>
+            tu.userId=u.id and t.id=tu.teamId
+            <if test="userName!= null and userName !=''">
+                and u.userName=#{userName}
+            </if>
+            <if test="administrative!= null and administrative !=''">
+                and u.administrative=#{administrative}
+            </if>
+            <if test="position!= null and position !=''">
+                and u.position=#{position}
+            </if>
+            <if test="title!= null and title !=''">
+                and u.title=#{title}
+            </if>
+            <if test="employeeType!= null and employeeType !=''">
+                and u.employeeType=#{employeeType}
+            </if>
+            <if test="departmentId!= null and departmentId !=''">
+                and t.departmentId=#{departmentId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delUser" parameterType="java.lang.String">
+        delete from  gm_team_user where userId=#{userId}
+    </delete>
+    <select id="selectUserIdfrom" resultType="java.lang.String">
+        select userId FROM gm_team_user
+    </select>
+    <insert id="addUserIdAndTeamId" parameterType="java.lang.String">
+        insert into gm_team_user (teamId,userId) values (#{teamId},#{userId})
+    </insert>
+</mapper>

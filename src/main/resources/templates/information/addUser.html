@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>修改密码--layui后台管理模板 2.0</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="/resource/common/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/resource/css/common.css" media="all"/>
+</head>
+<body class="index">
+<blockquote class="layui-elem-quote quoteBox layui-form">
+    <div class="layui-form">
+        <div class="layui-row ">
+            <div class="layui-col-md2">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选择部门：</label>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <select name="teamId" id="teamId" lay-filter="teamId">
+                                <option value=" ">请选择</option>
+                                <option th:each="team:${teamList}"
+                                        th:text="${team.name}" th:value="${team.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</blockquote>
+<table id="userTables" lay-filter="userTables"></table>
+<script type="text/html" id="header">
+    <div class="layui-btn-container" style="overflow: hidden">
+        <div style="float: right">
+            <button class="layui-btn layui-btn-sm" lay-event="addUsers">添加选中</button>
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="/resource/common/layui/layui.js"></script>
+<script type="text/javascript" src=" /resource/js/user.js"></script>
+<script type="text/javascript" th:inline="javascript">
+
+
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var table = layui.table,
+            $ = layui.$,
+            layer = layui.layer,
+            form = layui.form
+        var tableIns = table.render({
+            elem: '#userTables'
+            , cellMinWidth: 100
+            , url: '/information/addUserTable.do' //数据接口
+            , method: 'get'
+            , toolbar: '#header'
+            , id: 'tableId'
+            , cols: [
+                [ //表头
+                    {'type': 'checkbox', 'fixed': 'left'}
+                    , {field: 'index', title: '序号'}
+                    , {field: 'userName', title: '用户名'}
+                    , {field: 'real', title: '真实姓名'}
+                    , {field: 'createdDate', title: '创建时间'}
+                    , {field: 'status', title: '状态'}
+                ]
+            ]
+        });
+        table.on('toolbar(userTables)', function (obj) {
+            var datas = table.checkStatus("tableId").data;
+            if (datas.length == 0) {
+                layer.alert("请选择数据后再进行操作！");
+            } else {
+                var ids = new Array();
+                for (d in datas) {
+                    ids.push(datas[d].id);
+                }
+                //添加选中
+                if (obj.event == "addUsers") {
+                    var teamId = $("#teamId").val();
+                    console.log(teamId);
+                    if (teamId === " ") {
+                        layer.alert("请选择部门后再进行操作！");
+                    } else {
+                        addUsers(ids.toString(), teamId);
+                    }
+
+                }
+            }
+        });
+
+        //添加用户函数
+        function addUsers(ids, teamId) {
+            layer.confirm('是否添加?', function (index) {
+                $.ajax({
+                    url: "/information/addUser.do",
+                    type: "post",
+                    data: {"ids": ids, "teamId": teamId},
+                    dataType: "json",
+                    success: function (result) {
+                        if (!result.status) {
+                            layer.msg(result.msg, {time: 2000});
+                            return false;
+                        }
+                        layer.msg("添加!", {time: 1000});
+                        parent.layui.table.reload('tableId', {});
+                    }
+                });
+                parent.layer.close(parent.layer.getFrameIndex(window.name));
+                layer.close(index)
+            })
+        }
+    });
+
+</script>
+
+</body>
+</html>

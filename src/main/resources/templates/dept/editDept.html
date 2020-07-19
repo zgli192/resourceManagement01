@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>修改密码--layui后台管理模板 2.0</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="/resource/common/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/resource/css/common.css" media="all"/>
+</head>
+<body class="index">
+<style>
+    .layui-long {
+        width: 108%;
+    }
+</style>
+<form class="layui-form" action="" style="margin:auto;margin-top:30px">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">部门名称</label>
+            <div class="layui-input-block">
+                <input id="name" name="name" th:value="${team.name}" lay-verify="required"
+                       class="layui-input layui-long"/>
+                <input hidden name="id" th:value="${team.id}"/>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">部门主管</label>
+            <div class="layui-input-inline">
+                <select name="conten" id="conten" lay-filter="departmentName">
+                    <option value=" ">请选择</option>
+                    <option th:each="user:${userList}"
+                            th:text="${user.userName}" th:value="${user.userName+','+user.id}"
+                            th:selected="${team.departmentName+','+team.departmentId==user.userName+','+user.id}">
+
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">部门薪资</label>
+            <div class="layui-input-block">
+                <input id="compensation" name="compensation" th:value="${team.compensation}"
+                       class="layui-input layui-long"/>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <div class="layui-inline">
+            <label class="layui-form-label">部门电话</label>
+            <div class="layui-input-block">
+                <input id="iphone" name="phone" th:value="${team.phone}" class="layui-input layui-long"
+                       lay-verify="phone"/>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <div class="layui-inline">
+            <label class="layui-form-label">部门职责</label>
+            <div class="layui-input-block">
+                <input id="responsibility" name="responsibility" th:value="${team.responsibility}"
+                       class="layui-input layui-long"/>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="Submit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="/resource/common/layui/layui.js"></script>
+<script type="text/javascript" src=" /resource/js/user.js"></script>
+<script type="text/javascript">
+
+
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var table = layui.table,
+            $ = layui.$,
+            layer = layui.layer,
+            form = layui.form
+        form.on('submit(Submit)', function (data) {
+            $.ajax({
+                url: '/dept/edit.do',
+                type: 'put',
+                data: data.field,
+                dataType: 'json',
+                async: false,
+                success: function (result) {
+                    if (!result.status) {
+                        parent.layer.msg(result.msg, {time: 2000});
+                        return false;
+                    } else {
+                        layer.msg("添加成功!", {time: 1000});
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                        parent.layui.table.reload('tableId', {});
+                    }
+                }
+
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>

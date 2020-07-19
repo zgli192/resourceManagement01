@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wyy.ityuyao.mapper.ApplyMapper">
+    <select id="selectApply" resultType="com.wyy.ityuyao.entity.Apply">
+        select distinct a.* from gm_apply a,gm_team t,gm_team_user tu
+        <where>
+            tu.userId=a.userId and t.id=tu.teamId and a.status=#{status}
+            <if test="departmentId!= null and departmentId !=''">
+                and t.departmentId=#{departmentId}
+            </if>
+        </where>
+    </select>
+</mapper>

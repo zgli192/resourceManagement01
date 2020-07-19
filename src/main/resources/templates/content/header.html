@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="content/head :: heads"/>
+<body th:fragment="headers">
+<div class="layui-header header">
+    <div>
+        <a href="javascript:void(0);" class="logo"><img alt="" src="/resource/image/favicon.ico"
+                                                        style="width:25px;margin-left:-13px;margin-top:-2px"/>&nbsp;基地管理系统</a>
+        <a href="javascript:;" class="seraph hideMenu layui-icon layui-icon-shrink-right"></a>
+        <input id="test" th:value="${menuInfo}" type="hidden"/>
+        <!-- 显示/隐藏菜单图标 -->
+        <ul class="layui-nav topLevelMenus" lay-filter="subSys">
+            <li class="layui-nav-item "><!--layui-this默认下方会有选中条  -->
+                <a href="javascript:;"><i class="layui-icon layui-icon-list"></i><cite id="systemSelect">系统选择</cite></a>
+                <dl class="layui-nav-child">
+                    <dd th:each="subSys:${subSysInfo}"
+                        th:attr="data-menu=${subSys.subSystemId},data-name=${subSys.subSystemName}">
+                        <a href="javascript:;"><i class="layui-icon layui-icon-set"></i><cite
+                                th:text="${subSys.subSystemName}"></cite></a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+        <!-- 顶部右侧菜单 -->
+        <ul class="layui-nav top_menu">
+            <!--<li class="layui-nav-item">
+                <a href="javascript:;" class="clearCache"><i class="layui-icon " data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+            </li>-->
+            <li class="layui-nav-item">
+                <a href="javascript:;"><i class="layui-icon layui-icon-chart-screen"></i><cite id="fullscreen">全屏</cite></a>
+            </li>
+            <li class="layui-nav-item lockcms">
+                <a href="javascript:;"><i class="layui-icon layui-icon-password"></i><cite>锁屏</cite></a>
+            </li>
+            <li class="layui-nav-item" id="userInfo">
+                <a href="javascript:;"><img src="/resource/image/face.jpg" class="layui-nav-img userAvatar" width="35"
+                                            height="35"/><cite class="adminName" th:text="${user.userName}"></cite></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" data-url="/PersonalCenter/safety"><i
+                            class="layui-icon">&#xe620;</i><cite>安全设置</cite></a></dd>
+                    <dd><a href="javascript:;" data-url="/changePwd"><i class="layui-icon layui-icon-edit"></i><cite>修改密码</cite></a>
+                    </dd>
+                    <!-- <dd><a href="javascript:;" class="showNotice"><i class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a></dd> -->
+                    <!-- <dd pc><a href="javascript:;" class="functionSetting"><i class="layui-icon">&#xe620;</i><cite>功能设定</cite><span class="layui-badge-dot"></span></a></dd> -->
+                    <dd><a href="javascript:;" class="changeSkin"><i
+                            class="layui-icon">&#xe61b;</i><cite>更换皮肤</cite></a></dd>
+                    <dd><a href="/logout.do" class="signOut"><i class="layui-icon layui-icon-close"></i><cite>退出</cite></a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
