@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--第二种：set方法实现依赖,外部声明-->
+
+
+<!--    <bean class="com.method.Timer.TimerByLast" id="timerByLast">-->
+<!--     <property name="nfdFlightDataTimerTask" ref="nfdFlightDataTimerTask"></property>-->
+<!--    </bean>-->
+
+
+
+
+<!--    <bean class="com.method.Timer.RunsOneDay" id="runsOneDay">-->
+<!--        <property name="timerByLast" ref="timerByLast"></property>-->
+<!--    </bean>-->
+
+</beans>

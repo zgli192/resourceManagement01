@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wyy.ityuyao.mapper.RoleMapper">
+<mapper namespace="com.wyy.ityuyaot.mapper.RoleMapper">
     <!-- 根据userId查询所拥有的角色列表 -->
-    <select id="selectRoleListByUserId" resultType="com.wyy.ityuyao.entity.Role">
+    <select id="selectRoleListByUserId" resultType="com.wyy.ityuyaot.entity.Role">
 		select gm_role.*from gm_role,gm_user_role where gm_user_role.userId =#{userId} and
 			gm_user_role.roleId =gm_role.id
 	</select>

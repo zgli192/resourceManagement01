@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wyy.ityuyao.mapper.TeamMapper">
-    <select id="selectUser" resultType="com.wyy.ityuyao.entity.User">
+<mapper namespace="com.wyy.ityuyaot.mapper.TeamMapper">
+    <select id="selectUser" resultType="com.wyy.ityuyaot.entity.User">
         select t.name as deptName ,u.* from gm_team t ,gm_user u,gm_team_user tu
         <where>
             tu.userId=u.id and t.id=tu.teamId

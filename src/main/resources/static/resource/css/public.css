@@ -14,7 +14,7 @@
 .layui-elem-quote.title{ padding:10px 15px; margin-bottom:0;}
 .layui-bg-white{ background-color:#fff !important;}
 .border{ border:1px solid #e6e6e6 !important; padding:10px; border-top:none;}
-.main_btn .layui-btn{ margin:2px 5px 2px 0;}
+.main_btn .layui-btn{ margin:10px 10px 10px 0;}
 .layui-timeline-axis{ left:-4px;}
 .layui-elem-quote{ word-break: break-all;}
 .icons li,.icons li:hover,.loginBody .seraph,.loginBody .seraph:hover,.loginBody .layui-form-item.layui-input-focus label,.loginBody .layui-form-item label,.loginBody .layui-form-item.layui-input-focus input,.loginBody .layui-form-item input{transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;}

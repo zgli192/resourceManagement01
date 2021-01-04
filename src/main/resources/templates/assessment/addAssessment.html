@@ -23,7 +23,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">月份</label>
             <div class="layui-input-block">
-                <input id="time" name="time" placeholder="yyyy-MM" lay-verify="required"
+                <input id="time" name="time" placeholder="yyyy-MM-dd" lay-verify="required"
                        class="layui-input layui-long"/>
             </div>
         </div>
@@ -101,7 +101,7 @@
             laydate = layui.laydate;
         laydate.render({
             elem: '#time',
-            type: 'month'
+            type: 'date'
         });
         form.on('submit(Submit)', function (data) {
             $.ajax({
