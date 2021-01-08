@@ -1063,7 +1063,7 @@ public class DateUtil {
         String lastDayOfMonth=dateFormat.format(calendar.getTime());
         return lastDayOfMonth;
     }
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         // log.debug( addDate(getDateyyyyMMdd(),-7));
         try {
             int k=(dateDiff("2016-09-28 14:00:00", "2016-09-28 19:00:00")-1);
@@ -1084,7 +1084,7 @@ public class DateUtil {
         } catch (ParseException e) {
             log.error(e.toString());
         }
-    }
+    }*/
 
 
     /**
